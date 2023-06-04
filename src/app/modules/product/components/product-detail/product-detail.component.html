@@ -1,0 +1,80 @@
+<div class="mx-auto lg:max-w-screen-lg xl:max-w-screen-xl">
+  <div class="flex flex-col p-4 lg:p-0 mb-10" *ngIf="product$ | async as product">
+    <h1 class="my-5 text-2xl font-bold">
+      {{ product.name }}
+    </h1>
+    <div
+      class="flex flex-col items-center sm:flex-row sm:justify-around"
+    >
+      <div class="relative w-full sm:w-2/4 lg:w-2/5" *ngIf="images$ | async as images; else noImage">
+        <owl-carousel-o [options]="customOptions" #owlCar>
+          <ng-template carouselSlide *ngFor="let image of images">
+            <div>
+              <img [src]="[imagesProviderUrl + image.largeImagePath]" />
+            </div>
+          </ng-template>
+        </owl-carousel-o>
+
+        <div class="absolute left-0 top-[46%] hidden w-full sm:block">
+          <i
+            class="material-icons-round absolute top-1/2 -left-3 z-10 -translate-y-1/2 cursor-pointer select-none rounded-2xl border bg-light-blue p-2.5 shadow-md"
+            (click)="owlCar.prev()"
+            >navigate_before</i
+          >
+          <i
+            class="material-icons-round absolute top-1/2 -right-3 z-10 -translate-y-1/2 cursor-pointer select-none rounded-2xl border bg-light-blue p-2.5 shadow-md"
+            (click)="owlCar.next()"
+            >navigate_next</i
+          >
+        </div>
+      </div>
+
+      <ng-template #noImage>
+        <img src="/assets/empty.jpg" class="sm:w-2/4 lg:w-2/5">
+      </ng-template>
+
+      <div
+        class="mt-3 flex h-fit w-full flex-col gap-4 rounded-xl border p-4 shadow-md sm:mb-20 sm:w-1/3"
+      >
+        <span class="text-3xl font-bold text-primary-color">{{
+          product.price
+        }}</span>
+
+        <button
+          mat-flat-button
+          color="primary"
+          class="flex items-center justify-center gap-1 bg-primary-color font-medium text-white"
+          (click)="addProductToCart(product.id)"
+        >
+          <mat-icon>shopping_cart</mat-icon>
+          Add to cart
+        </button>
+
+        <button
+          mat-flat-button
+          class="flex items-center justify-center !border !border-solid !border-primary-color font-medium [&_span]:text-primary-color"
+          (click)="buySingleProduct()"
+        >
+          Buy now
+        </button>
+      </div>
+    </div>
+
+    <div
+      class="mt-10 flex flex-row gap-4 rounded-lg bg-light-platinum sm:gap-8"
+    >
+      <app-store-card
+        routerLink="/store"
+        [queryParams]="{ storeId: product.storeId }"
+        [storeId]="product.storeId"
+      ></app-store-card>
+    </div>
+
+    <div class="mt-10 flex flex-col gap-4 rounded-lg bg-light-platinum p-4">
+      <span class="text-lg font-bold">Product description</span>
+      <p>
+        {{ product.description }}
+      </p>
+    </div>
+  </div>
+</div>

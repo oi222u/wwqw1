@@ -1,0 +1,24 @@
+<div class="flex flex-col gap-6 p-3" mat-dialog-content>
+  <h1 class="text-xl font-medium" mat-dialog-title>Confirm</h1>
+  <div>{{ message }}</div>
+  <div mat-dialog-actions class="flex w-full gap-6">
+    <button
+      class="w-full"
+      mat-flat-button
+      mat-dialog-close
+      color="primary"
+      (click)="onConfirm(false)"
+    >
+      No
+    </button>
+    <button
+      class="w-full"
+      mat-flat-button
+      mat-dialog-close
+      color="warn"
+      (click)="onConfirm(true)"
+    >
+      Yes
+    </button>
+  </div>
+</div>

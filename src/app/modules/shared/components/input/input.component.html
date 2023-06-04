@@ -1,0 +1,9 @@
+<ng-content></ng-content>
+<input
+  [type]="inputType"
+  [placeholder]="placeholder"
+  [ngClass]="{ pl: hasIconLeft }"
+  class="rounded-lg border border-solid border-platinum p-2.5 text-spanish-gray outline-none"
+  #input
+  (keyup.enter)="emitInputValue(input.value)"
+/>

@@ -1,0 +1,59 @@
+<app-login-base class="[&_.box]:lg:h-4/5">
+  <div class="mt-10 flex w-full flex-col justify-center text-center">
+    <h1 class="text-xl font-bold">Create account</h1>
+
+    <div class="my-8 flex flex-col gap-3">
+      <span class="font-bold">Select the type of your account</span>
+      <mat-radio-group aria-label="Select the type of your account" [(ngModel)]="accountType">
+        <mat-radio-button
+          class="mr-4"
+          value="customer"
+          color="primary"
+          name="accountType"
+          >Customer</mat-radio-button
+        >
+        <mat-radio-button
+          color="primary"
+          name="accountType"
+          value="store"
+          >Store</mat-radio-button
+        >
+      </mat-radio-group>
+    </div>
+
+    <div class="flex w-full flex-col gap-4 px-10 sm:px-40 lg:px-10 xl:px-20">
+      <form #form="ngForm" class="flex flex-col" (ngSubmit)="register()">
+        <mat-form-field appearance="fill">
+          <mat-label>Name</mat-label>
+          <input [(ngModel)]="user.name" name="name" matInput />
+        </mat-form-field>
+
+        <mat-form-field *ngIf="accountType == 'store'" appearance="fill">
+          <mat-label>Store description</mat-label>
+          <input [(ngModel)]="storeDescription" name="description" matInput />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>E-mail address</mat-label>
+          <input [(ngModel)]="user.email" name="email" matInput />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input [(ngModel)]="user.password" name="password" matInput />
+        </mat-form-field>
+      </form>
+
+      <div>
+        <button
+          class="mb-8 rounded-lg lg:mt-4"
+          mat-flat-button
+          color="primary"
+          (click)="form.ngSubmit.emit()"
+        >
+          Register now
+        </button>
+      </div>
+    </div>
+  </div>
+</app-login-base>

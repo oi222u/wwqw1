@@ -1,0 +1,38 @@
+<app-login-base>
+  <h1 class="mb-32 text-xl font-bold lg:mb-8">Welcome back! Log in</h1>
+
+  <div class="xl flex w-full flex-col px-10 lg:px-20">
+    <form #form="ngForm" class="flex flex-col" (ngSubmit)="login()">
+      <mat-form-field appearance="fill">
+        <mat-label>Login/e-mail</mat-label>
+        <input [(ngModel)]="user.email" name="email" matInput />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Password</mat-label>
+        <input [(ngModel)]="user.password" name="password" matInput />
+      </mat-form-field>
+
+      <span class="self-end text-primary-color"
+        ><a routerLink="/auth/forgot-password">Forgot Password?</a></span
+      >
+    </form>
+  </div>
+
+  <button
+    class="mt-24 mb-8 w-1/4 rounded-lg lg:mt-4"
+    mat-flat-button
+    color="primary"
+    type="submit"
+    (click)="form.ngSubmit.emit()"
+  >
+    Login
+  </button>
+
+  <span
+    >You do not have an account?
+    <span class="text-primary-color">
+      <a routerLink="/auth/new-account">Register</a>
+    </span>
+  </span>
+</app-login-base>

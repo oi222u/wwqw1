@@ -1,0 +1,31 @@
+<div class="sm:w-full">
+  <div
+    class="flex h-[30rem] w-full flex-col gap-4 rounded-lg border border-solid shadow-md"
+  >
+    <div
+      [routerLink]="productRoute + product?.id"
+      class="h-3/5 cursor-pointer border-b border-solid"
+    >
+      <img [src]="[productImageUrl]" (error)="handleImageError(productImageUrl)" alt="product image" class="h-full" />
+
+      <img *ngIf="imageLoadFailed" src="/assets/empty.jpg">
+    </div>
+
+    <div class="flex flex-col gap-6 p-3">
+      <span class="multine-ellipsis overflow-hidden text-ellipsis font-medium"
+        >{{ product?.name }}
+      </span>
+      <span class="text-xl font-bold text-primary-color">${{product?.price | number: '1.2-2'}}</span>
+
+      <button
+        mat-flat-button
+        color="primary"
+        class="flex h-10 items-center justify-center gap-2 bg-primary-color font-medium text-white"
+        (click)="addProductToCart(product?.id ?? 0)"
+      >
+        <mat-icon>shopping_cart</mat-icon>
+        Add to cart
+      </button>
+    </div>
+  </div>
+</div>

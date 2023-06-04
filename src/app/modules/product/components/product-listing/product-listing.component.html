@@ -1,0 +1,107 @@
+<div class="mx-auto lg:max-w-screen-lg xl:max-w-screen-xl">
+  <input
+    type="checkbox"
+    class="absolute hidden [&+div]:checked:left-0"
+    [checked]="checked"
+  />
+  <div
+    class="fixed top-0 -left-full z-20 flex h-full w-full list-none flex-col items-center justify-center bg-light-platinum leading-10 transition-all duration-700 ease-in-out lg:hidden"
+  >
+    <app-product-filter-group
+      class="[&>div]:flex [&>div]:lg:hidden"
+    ></app-product-filter-group>
+
+    <span class="absolute top-6 left-5">
+      <i
+        class="material-icons-round cursor-pointer select-none"
+        (click)="onMenuClick()"
+        >close</i
+      >
+    </span>
+  </div>
+
+  <div class="flex flex-col px-4 lg:px-0">
+    <span class="my-2 font-bold"
+      >You searched for:
+      <span class="font-normal">{{ query }}</span>
+    </span>
+
+    <div class="flex h-full rounded-lg bg-light-platinum">
+      <div
+        class="grid h-full w-full grid-cols-2 items-center justify-center gap-5 p-3 lg:flex lg:gap-40"
+      >
+        <div class="lg:hidden">
+          <button
+            mat-flat-button
+            color="primary"
+            class="flex w-full text-white"
+            (click)="onMenuClick()"
+          >
+            <mat-icon>tune</mat-icon>
+            Filters
+          </button>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <span class="hidden items-center gap-2 lg:flex">
+            <i class="material-icons-round cursor-pointer select-none">sort</i>
+            <span class="font-medium">Order by:</span>
+          </span>
+
+          <select
+            class="w-full rounded-lg border p-2.5 outline-none lg:w-40"
+            #orderings
+            (change)="changeProductOrdering(orderings.value)"
+          >
+            <option [value]="productOrdinations.featured" selected>
+              Relevance
+            </option>
+            <option [value]="productOrdinations.newProducts">New</option>
+            <option [value]="productOrdinations.priceAscending">
+              Price Low to High
+            </option>
+            <option [value]="productOrdinations.priceDescending">
+              Price High to Low
+            </option>
+          </select>
+        </div>
+
+        <span><span class="font-bold">{{productsTotalFound}}</span> items found</span>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="mt-2 p-4 lg:flex lg:gap-4 lg:p-0"
+    *ngIf="products$ | async as products"
+  >
+    <app-product-filter-group
+      class="[&>div]:hidden [&>div]:lg:flex"
+    ></app-product-filter-group>
+
+    <div
+      class="grid h-full w-full gap-4 min-[430px]:grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 mb-10"
+    >
+      <ng-container *ngFor="let product of products.data; let i = index">
+        <app-product-card
+          [productImageUrl]="images[i] ? imagesProviderUrl + images[i].largeImagePath : '/assets/empty.jpg'"
+          [product]="product"
+          [productRoute]="productCardRoute"
+        ></app-product-card>
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="mb-10">
+    <mat-paginator
+      #paginator
+      (page)="changeProductPage($event)"
+      class="flex w-full rounded-md bg-light-platinum p-2"
+      [length]="productsTotal"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="pageSizeOptions"
+      aria-label="Select page"
+    >
+    </mat-paginator>
+  </div>
+</div>

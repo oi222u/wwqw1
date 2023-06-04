@@ -1,0 +1,16 @@
+<fieldset class="flex flex-col">
+  <legend class="font-medium">Price</legend>
+
+  <div class="w-full pr-4">
+    <mat-slider
+      #slider
+      min="0"
+      max="10000"
+      [displayWith]="formatLabel"
+      discrete
+    >
+      <input #sliderStart matSliderStartThumb  (valueChange)="onStartValueChange($event)" />
+      <input #sliderEnd matSliderEndThumb (valueChange)="onEndValueChange($event)"  />
+    </mat-slider>
+  </div>
+</fieldset>
