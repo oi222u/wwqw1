@@ -1,5 +1,5 @@
 export const environment = {
     production: true,
-    apiUrl: '',
-    imagesProviderUrl: 'https://localhost:7240'
+    apiUrl: 'http://matheush99929-001-site1.etempurl.com/api',
+    imagesProviderUrl: 'http://matheush99929-001-site1.etempurl.com'
 };
