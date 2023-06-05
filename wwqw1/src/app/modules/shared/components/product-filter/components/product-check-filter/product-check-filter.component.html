@@ -1,0 +1,18 @@
+<fieldset class="flex flex-col">
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title class="font-medium">Categories</mat-panel-title>
+      </mat-expansion-panel-header>
+      <div *ngIf="productCategories$ | async as productCategories">
+        <div *ngFor="let category of productCategories">
+          <mat-checkbox
+            (change)="onCheckBoxChange($event, category.id)"
+            color="primary"
+          ></mat-checkbox>
+          <span>{{ category.categoryName }}</span>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</fieldset>

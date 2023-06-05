@@ -1,0 +1,135 @@
+<div>
+  <div
+    class="mx-auto flex flex-wrap items-center justify-between p-4 lg:max-w-screen-lg lg:flex-nowrap xl:max-w-screen-xl"
+  >
+    <div class="lg:hidden">
+      <span class="flex">
+        <i
+          class="material-icons-round order-1 cursor-pointer select-none lg:order-none"
+          (click)="onMenuClick()"
+          >menu</i
+        >
+      </span>
+    </div>
+
+    <input
+      type="checkbox"
+      class="hidden [&+div]:checked:left-0"
+      [checked]="checked"
+    />
+    <div
+      class="fixed top-0 -left-full z-20 flex h-full w-full list-none flex-col items-center justify-center bg-light-platinum leading-10 transition-all duration-700 ease-in-out lg:hidden"
+    >
+    <ol (click)="onMenuClick()" class="text-center">
+      <li routerLink="/">Home</li>
+      <li routerLink="auth/account-info">Account</li>      
+      <li routerLink="order/listing">Orders</li>
+      <li *ngIf="userHasStore" routerLink="product/inventory">Inventory</li>
+      <li *ngIf="userHasStore" routerLink="product/add">Create a product</li>
+      <li (click)="userLogOut()">Log out</li>
+    </ol>
+
+      <span class="close-menu absolute top-6 left-5">
+        <i
+          class="material-icons-round cursor-pointer select-none"
+          (click)="onMenuClick()"
+          >close</i
+        >
+      </span>
+    </div>
+
+    <img
+      routerLink=""
+      class="order-2 h-7 cursor-pointer select-none lg:order-none lg:h-10"
+      src="/assets/svg/logo.svg"
+      alt="logo"
+    />
+    <div class="order-4 my-2 mt-4 flex w-full lg:order-none lg:w-[35rem]">
+      <app-input
+        class="w-full [&>input]:w-full"
+        placeholder="Search..."
+        [hasIconLeft]="true"
+        inputType="search"
+        (newTypedValue)="searchProduct($event)"
+      >
+        <i class="material-icons-round absolute p-2.5 text-primary-color"
+          >search</i
+        >
+      </app-input>
+    </div>
+
+    <div class="order-3 flex lg:order-none lg:gap-3">
+      <app-icon-box class="order-2 cursor-pointer" routerLink="/cart">
+        <i class="material-icons-round select-none text-primary-color"
+          >shopping_cart</i
+        >
+        <div *ngIf="cartItemsCount > 0" class="absolute">
+          <i class="material-icons-round mb-8 ml-8 select-none text-red-500"
+            >circle</i
+          >
+          <span
+            class="absolute mt-1 -ml-[1rem] text-xs font-semibold text-white"
+          >
+            {{ cartItemsCount }}</span
+          >
+        </div>
+      </app-icon-box>
+
+      <app-icon-box
+        class="order-3 hidden cursor-pointer lg:block"
+        [matMenuTriggerFor]="userMenu"
+        *ngIf="userIsLogged(); else userLoggedOutOption"
+      >
+        <i class="material-icons-round select-none text-primary-color"
+          >person</i
+        >
+      </app-icon-box>
+
+      <ng-template #userLoggedOutOption>
+        <app-icon-box
+          class="order-3 hidden cursor-pointer lg:block"
+          routerLink="/auth/login"
+        >
+          <i class="material-icons-round select-none text-primary-color"
+            >person</i
+          >
+        </app-icon-box>
+      </ng-template>
+
+      <mat-menu #userMenu="matMenu">
+        <button mat-menu-item routerLink="/auth/account-info">
+          Your account
+        </button>
+        <button (click)="userLogOut()" mat-menu-item>Log out</button>
+      </mat-menu>
+
+      <app-icon-box
+        class="order-4 hidden cursor-pointer lg:block"
+        routerLink="/order/listing"
+      >
+        <i class="material-icons-round select-none text-primary-color"
+          >inventory
+        </i>
+      </app-icon-box>
+
+      <app-icon-box
+        *ngIf="userHasStore"
+        class="order-4 hidden cursor-pointer lg:block"
+        [matMenuTriggerFor]="storeMenu"
+      >
+        <i class="material-icons-round select-none text-primary-color"
+          >inventory_2
+        </i>
+      </app-icon-box>
+
+      <mat-menu #storeMenu="matMenu">
+        <button mat-menu-item routerLink="/product/inventory">
+          Your inventory
+        </button>
+        <button mat-menu-item routerLink="/product/add">
+          Create a product
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+</div>

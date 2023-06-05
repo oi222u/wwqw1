@@ -1,0 +1,123 @@
+<div class="w-full bg-light-platinum">
+  <div class="mx-auto p-4 lg:max-w-screen-lg lg:p-0 xl:max-w-screen-xl">
+    <div
+      class="flex flex-col justify-between py-5 lg:flex-row [&_h4]:font-bold [&_li]:mt-3"
+    >
+      <div class="flex gap-12">
+        <div class="flex flex-grow basis-full flex-col lg:mr-14">
+          <h4 class="mt-3">Sign up for news</h4>
+          <p class="mt-6">
+            Keep up to date with the latest product launches and news. Find out
+            more about our brands and get special promo codes.
+          </p>
+          <app-input
+            class="mt-6 [&>input]:w-full"
+            placeholder="Your e-mail"
+            type="email"
+          ></app-input>
+          <button class="mt-4" mat-flat-button color="primary">
+            Subscribe
+          </button>
+          <span class="mt-3 flex items-center">
+            <mat-checkbox color="primary"></mat-checkbox>
+            <span class="text-sm"
+              >I accept
+              <span class="text-primary-color"
+                >the personal data management.</span
+              >
+            </span>
+          </span>
+        </div>
+
+        <div
+          class="hidden flex-grow basis-1/2 flex-col lg:flex"
+          *ngFor="let footerItem of footerItems"
+        >
+          <h4 class="my-3">{{ footerItem.title }}</h4>
+          <ul>
+            <li>
+              <a>{{ footerItem.item1 }}</a>
+            </li>
+            <li>
+              <a>{{ footerItem.item2 }}</a>
+            </li>
+            <li>
+              <a>{{ footerItem.item3 }}</a>
+            </li>
+            <li>
+              <a>{{ footerItem.item4 }}</a>
+            </li>
+            <li>
+              <a>{{ footerItem.item5 }}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="my-6 flex flex-col lg:hidden">
+        <mat-accordion class="mb-1.5" *ngFor="let footerItem of footerItems">
+          <mat-expansion-panel
+            class="bg-light-platinum"
+            (opened)="panelOpenState = true; panelId = footerItem.id"
+            (closed)="panelOpenState = false; panelId = footerItem.id"
+          >
+            <mat-expansion-panel-header>
+              <mat-panel-title
+                class="font-bold"
+                [ngClass]="{
+                  bluePanelTitle: panelOpenState && panelId === footerItem.id
+                }"
+              >
+                {{ footerItem.title }}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <ul>
+              <li>
+                <a>{{ footerItem.item1 }}</a>
+              </li>
+              <li>
+                <a>{{ footerItem.item2 }}</a>
+              </li>
+              <li>
+                <a>{{ footerItem.item3 }}</a>
+              </li>
+              <li>
+                <a>{{ footerItem.item4 }}</a>
+              </li>
+              <li>
+                <a>{{ footerItem.item5 }}</a>
+              </li>
+            </ul>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+    </div>
+
+    <div>
+      <hr class="opacity-80" />
+    </div>
+
+    <div
+      class="flex flex-col items-center justify-between justify-items-center py-6 lg:flex-row"
+    >
+      <span class="order-2 flex items-center lg:order-1">
+        <i class="material-icons-round mr-2">copyright</i>
+        <span>2023 Matheus</span>
+      </span>
+
+      <div class="order-1 flex flex-col items-center lg:order-2 lg:flex-row">
+        <div class="flex gap-4">
+          <img class="h-5" src="/assets/svg/facebook.svg" alt="facebook" />
+          <img class="h-5" src="/assets/svg/instagram.svg" alt="instagram" />
+          <img class="h-5" src="/assets/svg/youtube.svg" alt="youtube" />
+        </div>
+
+        <img
+          class="my-10 h-8 lg:my-0 lg:ml-10"
+          src="/assets/svg/logo.svg"
+          alt="logo"
+        />
+      </div>
+    </div>
+  </div>
+</div>

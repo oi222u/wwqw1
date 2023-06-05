@@ -1,0 +1,31 @@
+<div
+  class="flex flex-row gap-4 rounded-lg bg-light-platinum sm:gap-8"
+  *ngIf="store$ | async as store"
+>
+  <div
+    class="flex flex-col items-center gap-4 rounded-lg border p-4 shadow sm:flex-row"
+  >
+    <img
+      *ngIf="image$ | async as image; else noImage"
+      [src]="[imagesProviderUrl + image.smallImagePath]"
+      class="h-32 rounded-full border shadow"
+    />
+    <span class="text-lg font-medium sm:mb-12">{{ store.name }}</span>
+    <ng-template #noImage>
+      <img src="/assets/empty.jpg" class="h-32 rounded-full border shadow" />
+    </ng-template>
+  </div>
+
+  <div class="flex flex-col justify-center gap-12">
+    <span
+      >Products:
+      <span class="text-primary-color">{{
+        store.productCatalogCount
+      }}</span></span
+    >
+    <span
+      >Joined:
+      <span class="text-primary-color">{{ store.createdAt | date }}</span></span
+    >
+  </div>
+</div>

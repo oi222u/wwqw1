@@ -1,0 +1,27 @@
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ["./src/**/*.{html,js}"],
+  theme: {
+    extend: {
+      colors: {
+        /* Brand colors */
+        'primary-color': '#1071FF',
+        'yale-blue': '#004796',
+        'denim': '#0E5DC1',
+        'azure': '#2580FF',
+        'cornflower-blue': '#629CFF',
+
+        /* Dark colors */
+        'rich-black': '#0C0C0C',
+        'onyx': '#434447',
+        'spanish-gray': '#737B7D',
+        
+        /* Light colors */
+        'platinum': '#EAECEE',
+        'light-platinum': '#F6F8FB',
+        'light-blue': '#E6EFFB',
+      },
+    },
+  },
+  plugins: [],
+}

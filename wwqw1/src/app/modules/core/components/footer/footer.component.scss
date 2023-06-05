@@ -1,0 +1,9 @@
+@import 'src/styles/colors.scss';
+
+:host ::ng-deep .mat-expansion-indicator::after {
+    border-color: $rich-black;
+}
+
+.bluePanelTitle {
+    color: $primary-color;
+}

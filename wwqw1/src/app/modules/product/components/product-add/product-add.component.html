@@ -1,0 +1,160 @@
+<div class="mx-auto lg:max-w-screen-lg xl:max-w-screen-xl">
+  <div>
+    <h1
+      *ngIf="product$ | async as product"
+      class="mt-5 text-center text-2xl font-bold lg:text-start"
+    >
+      Edit product:
+      <span class="ml-2 text-xl font-medium">#{{ product.id }}</span>
+    </h1>
+
+    <h1
+      *ngIf="!product$"
+      class="mt-5 text-center text-2xl font-bold lg:text-start"
+    >
+      Add a new product
+    </h1>
+
+    <div class="flex flex-col">
+      <div
+        class="mt-10 flex w-full flex-col justify-around gap-20 p-4 pb-14 sm:flex-row lg:gap-60 lg:px-0 lg:pt-0"
+      >
+        <div class="order-2 flex flex-grow flex-col lg:order-1">
+          <h2 class="mb-6 text-center text-xl font-bold">Product info</h2>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Product name</mat-label>
+            <input matInput [(ngModel)]="product.name" name="name" />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="h-40">
+            <mat-label>Product description</mat-label>
+            <textarea
+              class="resize-none"
+              [(ngModel)]="product.description" name="description"
+              matInput              
+            ></textarea>
+          </mat-form-field>
+
+          <div *ngIf="productCategories$ | async as productCategories">
+            <mat-form-field appearance="fill">
+              <mat-label>Select category</mat-label>
+              <mat-select [(ngModel)]="product.productCategoryId" name="category">
+                <mat-option
+                  *ngFor="let category of productCategories"
+                  [value]="category.id"                  
+                  >{{category.categoryName}}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Price</mat-label>
+            <input matInput [(ngModel)]="product.price" name="price" />
+          </mat-form-field>
+
+          <div
+            class="mt-10 flex justify-center gap-6 lg:w-1/2 lg:justify-end lg:self-end"
+          >
+            <button
+              class="w-full"
+              mat-flat-button
+              color="warn"
+              (click)="
+                CancelChangesDialog(
+                  '250ms',
+                  '150ms',
+                  'Are you sure you want to cancel your changes?'
+                )
+              "
+            >
+              Cancel
+            </button>
+            <button
+              class="hidden w-full lg:block"
+              mat-flat-button
+              color="primary"
+              (click)="
+                SaveChangesDialog(
+                  '250ms',
+                  '150ms',
+                  'Are you sure you want to save all?'
+                )
+              "
+            >
+              Save all
+            </button>
+          </div>
+        </div>
+
+        <div class="relative flex w-full flex-col sm:w-2/5 lg:order-2 lg:w-2/6">
+          <div class="relative w-full" *ngIf="images$ | async as images">
+            <h2 class="mb-6 text-center text-xl font-bold">Product images</h2>
+            <owl-carousel-o [options]="customOptions" #owlCar>
+              <ng-template carouselSlide *ngFor="let image of images">
+                <div>
+                  <img [src]="[imagesProviderUrl + image.largeImagePath]" />
+                </div>
+              </ng-template>
+            </owl-carousel-o>
+
+            <div class="absolute left-0 top-[46%] hidden w-full sm:block">
+              <i
+                class="material-icons-round absolute top-1/2 -left-3 z-10 -translate-y-1/2 cursor-pointer select-none rounded-2xl border bg-light-blue p-2.5 shadow-md"
+                (click)="owlCar.prev()"
+                >navigate_before</i
+              >
+              <i
+                class="material-icons-round absolute top-1/2 -right-3 z-10 -translate-y-1/2 cursor-pointer select-none rounded-2xl border bg-light-blue p-2.5 shadow-md"
+                (click)="owlCar.next()"
+                >navigate_next</i
+              >
+            </div>
+          </div>
+
+          <div class="mt-10 flex gap-10 lg:mt-6">
+            <button
+              class="flex-grow basis-0"
+              mat-flat-button
+              color="warn"
+              (click)="
+                RemoveImageDialog(
+                  '250ms',
+                  '150ms',
+                  'Are you sure you want to remove this image?'
+                )
+              "
+            >
+              Remove image
+              <i
+                class="material-icons-round ml-1 cursor-pointer select-none align-middle"
+                >delete</i
+              >
+            </button>
+
+            <input
+              class="hidden"
+              type="file"
+              accept="image/*"
+              (change)="uploadImage($event)"
+              #imageUpload
+            />
+            <button
+              class="flex-grow basis-0"
+              mat-flat-button
+              color="primary"
+              (click)="imageUpload.click()"
+            >
+              Add new image
+              <i
+                class="material-icons-round ml-1 cursor-pointer select-none align-middle"
+                >file_upload</i
+              >
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

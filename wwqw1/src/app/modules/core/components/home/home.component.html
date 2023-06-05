@@ -1,0 +1,30 @@
+<div class="mx-auto lg:max-w-screen-lg xl:max-w-screen-xl">
+  <div class="p-4 lg:p-0 flex flex-col gap-8 mb-10">
+    <div class="flex flex-col">
+      <div class="flex items-center">
+        <h2 class="text-xl font-medium">Trending</h2>
+      </div>
+      <app-product-carousel
+        [productSorting]="productOrdinations.featured"
+      ></app-product-carousel>
+    </div>
+
+    <div class="flex flex-col">
+      <div class="flex items-center">
+        <h2 class="text-xl font-medium">New products</h2>
+      </div>
+      <app-product-carousel
+        [productSorting]="productOrdinations.newProducts"
+      ></app-product-carousel>
+    </div>
+
+    <div class="flex flex-col">
+      <div class="flex items-center">
+        <h2 class="text-xl font-medium">New stores</h2>
+      </div>
+      <app-product-carousel
+        [productSorting]="productOrdinations.newStores"
+      ></app-product-carousel>
+    </div>
+  </div>
+</div>

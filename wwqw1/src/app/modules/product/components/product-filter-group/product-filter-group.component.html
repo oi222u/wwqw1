@@ -1,0 +1,18 @@
+<div
+  class="mt-60 w-screen flex-col items-center gap-2 p-4 lg:mt-0 lg:flex lg:w-60 lg:items-start lg:p-0"
+>
+  <span class="flex items-center gap-2">
+    <i class="material-icons-round cursor-pointer select-none">tune</i>
+    <span class="text-lg font-medium">Filter by:</span>
+  </span>
+
+  <div
+    class="lg:w-full mb-8 flex h-screen w-full flex-col gap-6 rounded-lg bg-light-platinum p-3 sm:w-4/5"
+  >
+    <app-product-price-filter (priceRangeChange)="storePriceRange($event)"></app-product-price-filter>
+    <hr />
+    <app-product-check-filter (checkBoxChange)="storeCategories($event)"></app-product-check-filter>
+
+    <button class="mt-12" mat-flat-button color="primary" (click)="applyFilters()">Apply filters</button>
+  </div>
+</div>

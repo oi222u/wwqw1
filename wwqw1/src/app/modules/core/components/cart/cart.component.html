@@ -1,0 +1,92 @@
+<div class="mx-auto lg:max-w-screen-lg xl:max-w-screen-xl">
+  <div class="flex flex-col gap-10 p-4 sm:flex-row lg:p-0 mb-10">
+    <div
+      class="flex h-fit w-full flex-grow flex-col gap-2 rounded-lg bg-light-blue p-2"
+    >
+      <h2 class="text-2xl font-bold">
+        Items: <span class="text-lg font-medium">{{cartItemsCount}}</span>
+      </h2>
+
+      <div
+        class="flex w-full flex-col rounded-lg bg-white"
+        *ngIf="products$ | async as products"
+      >
+        <div
+          class="flex items-center gap-6 rounded-2xl p-4 lg:gap-10"
+          *ngFor="let product of products; let i = index"
+        >
+          <img
+            class="w-36"
+            *ngIf="images[i]"
+            [src]="imagesProviderUrl + images[i].smallImagePath"
+            alt="logo"
+          />
+
+          <div class="flex w-full flex-col gap-10">
+            <div
+              class="flex flex-col justify-between gap-4 lg:flex-row lg:gap-0"
+            >
+              <p class="text-lg font-bold">{{ product.name }}</p>
+              <span class="text-xl font-bold text-primary-color"
+                >${{ product.price }}</span
+              >
+            </div>
+
+            <div
+              class="flex flex-col justify-between gap-4 lg:flex-row lg:gap-0"
+            >
+              <app-quantity-selector
+                class="[&_.icon-box]:h-6 [&_.icon-box]:w-6"
+                [productId]="product.id"
+                (productAmountChange)="calculateTotalPrice()"
+              ></app-quantity-selector>
+              <span
+                class="flex items-center gap-1"
+                (click)="deleteProduct(product.id)"
+              >
+                <i
+                  class="material-icons-round cursor-pointer select-none text-primary-color"
+                  >delete</i
+                >
+                <span class="font-medium">Remove product</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="flex h-fit w-full basis-1/2 flex-col gap-6 rounded-lg bg-light-platinum p-4 lg:w-2/6"
+    >
+      <h1 class="text-2xl font-bold">Summary</h1>
+
+      <div class="flex flex-col gap-2">
+        <span class="flex justify-between"
+          >Price: <span class="font-bold">${{basePrice| number: '1.2-2'}}</span>
+        </span>
+
+        <span class="flex justify-between">Discount: <span>{{discount| number: '1.2-2'}}</span></span>
+
+        <span class="flex justify-between text-xl font-bold text-primary-color"
+          >Total price:
+          <span>{{totalPrice| number: '1.2-2'}}</span>
+        </span>
+
+        <div class="flex flex-col gap-4">
+          <button class="mt-4" mat-flat-button color="primary" (click)="checkout()">
+            Go to checkout
+          </button>
+
+          <button
+            mat-flat-button
+            routerLink=""
+            class="flex items-center justify-center !border !border-solid !border-primary-color font-medium [&_span]:text-primary-color"
+          >
+            Go back to shopping
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
